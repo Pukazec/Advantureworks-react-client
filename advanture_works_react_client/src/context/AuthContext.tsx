@@ -7,16 +7,16 @@ interface Props {
 }
 
 export interface IUseAuthValues {
-  userName: string | undefined;
-  setUserName: (newState: string) => void;
+  email: string | undefined;
+  setEmail: (newState: string) => void;
   jwt: string | undefined;
   setJwt: (newState: string) => void;
   logout: () => void;
 }
 
 const defaultState: IUseAuthValues = {
-  userName: undefined,
-  setUserName: () => {
+  email: undefined,
+  setEmail: () => {
     throw new Error('Function not implemented.');
   },
   jwt: undefined,
@@ -33,11 +33,11 @@ export const useAuthContext = () => useContext(AuthContext);
 
 export const AuthContextProvider: FC<Props> = (props: Props) => {
   const navigate = useNavigate();
-  const [userName, setUserName] = useState<string | undefined>(undefined);
+  const [email, setEmail] = useState<string | undefined>(undefined);
   const [jwt, setJwt] = useState<string | undefined>(undefined);
 
   const logout = () => {
-    setUserName(undefined);
+    setEmail(undefined);
     setJwt(undefined);
     navigate(routes.ROUTE_USER_LOGIN);
   };
@@ -45,8 +45,8 @@ export const AuthContextProvider: FC<Props> = (props: Props) => {
   return (
     <AuthContext.Provider
       value={{
-        userName,
-        setUserName,
+        email,
+        setEmail,
         jwt,
         setJwt,
         logout,
