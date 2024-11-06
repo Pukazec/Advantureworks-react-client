@@ -1,9 +1,9 @@
 import React from 'react';
 import { useRoutes } from 'react-router-dom';
 import './App.css';
-import { routeElements } from './config/routes/routeElements';
 import { AuthContextProvider } from './context/AuthContext';
 import { HttpContextProvider } from './context/HttpContext';
+import { routeElements } from './utils/routes/routeElements';
 
 const App: React.FC = () => {
   const routing = useRoutes(routeElements);

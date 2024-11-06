@@ -3,8 +3,8 @@ import axios, { AxiosRequestConfig, RawAxiosRequestHeaders } from 'axios';
 import { createContext, FC, ReactNode, useContext, useState } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { useNavigate } from 'react-router-dom';
-import { routes } from '../config/routes/definedRoutes';
 import ErrorScreen from '../pages/Error/ErrorScreen';
+import { routes } from '../utils/routes/definedRoutes';
 import { useAuthContext } from './AuthContext';
 
 interface Props {
@@ -15,7 +15,7 @@ enum RequestType {
   get,
   post,
   put,
-  delete,
+  deleteEntity,
 }
 
 const API_PATH = 'http://localhost:6969';
@@ -34,7 +34,10 @@ export interface IUseHttpValues {
     showLoader?: boolean,
     showNotification?: boolean
   ) => Promise<T | undefined>;
-  delete: <T>(url: string, showLoader?: boolean) => Promise<T | undefined>;
+  deleteEntity: <T>(
+    url: string,
+    showLoader?: boolean
+  ) => Promise<T | undefined>;
   setLoading: (newState: boolean) => void;
 }
 
@@ -48,7 +51,7 @@ const defaultState: IUseHttpValues = {
   put: () => {
     throw new Error('Function not implemented!');
   },
-  delete: () => {
+  deleteEntity: () => {
     throw new Error('Function not implemented!');
   },
   setLoading: () => {
@@ -106,7 +109,7 @@ export const HttpContextProvider: FC<Props> = (props: Props) => {
     url: string,
     showLoader?: boolean
   ): Promise<T | undefined> {
-    return await handleRequest<T>(RequestType.delete, url, showLoader);
+    return await handleRequest<T>(RequestType.deleteEntity, url, showLoader);
   }
 
   const handleRequest = async <T,>(
@@ -167,7 +170,7 @@ export const HttpContextProvider: FC<Props> = (props: Props) => {
           body,
           getGenericRequestConfig(jwt)
         );
-      case RequestType.delete:
+      case RequestType.deleteEntity:
         return await axios.delete<T>(
           `${API_PATH}${url}`,
           getGenericRequestConfig(jwt)
@@ -227,7 +230,7 @@ export const HttpContextProvider: FC<Props> = (props: Props) => {
             get,
             post,
             put,
-            delete: deleteEntity,
+            deleteEntity,
             setLoading,
           }}
         >

@@ -1,8 +1,8 @@
 import { Button, Form, Input } from 'antd';
 import { useForm } from 'antd/lib/form/Form';
 import { useNavigate } from 'react-router-dom';
-import { routes } from '../../config/routes/definedRoutes';
 import { useHttpContext } from '../../context/HttpContext';
+import { routes } from '../../utils/routes/definedRoutes';
 
 const RegisterScreen: React.FC = () => {
   const { post } = useHttpContext();

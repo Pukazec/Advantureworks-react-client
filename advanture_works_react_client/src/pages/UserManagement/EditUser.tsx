@@ -2,9 +2,9 @@ import { Form, Input, Modal, Spin } from 'antd';
 import { useForm } from 'antd/es/form/Form';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { routes } from '../../config/routes/definedRoutes';
 import { useAuthContext } from '../../context/AuthContext';
 import { useHttpContext } from '../../context/HttpContext';
+import { routes } from '../../utils/routes/definedRoutes';
 
 interface Props {
   visible: boolean;

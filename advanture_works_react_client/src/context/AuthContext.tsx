@@ -1,6 +1,6 @@
 import { createContext, FC, ReactNode, useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { routes } from '../config/routes/definedRoutes';
+import { routes } from '../utils/routes/definedRoutes';
 
 interface Props {
   children: ReactNode;
