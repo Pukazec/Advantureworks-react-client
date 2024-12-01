@@ -5,13 +5,13 @@ import {
   Input,
   InputNumber,
   Modal,
-  Select,
   Spin,
 } from 'antd';
 import { useForm } from 'antd/es/form/Form';
 import { useEffect, useState } from 'react';
 import { useHttpContext } from '../../context/HttpContext';
 import { FieldDto, FieldTypes } from '../../utils/field/fieldDtos';
+import { AdventureSelectField } from './AdventureSelectField';
 
 interface Props {
   open: boolean;
@@ -63,12 +63,7 @@ const AdventureForm: React.FC<Props> = (props: Props) => {
               );
               break;
             case FieldTypes.SELECT: {
-              input = (
-                <Select
-                  placeholder={`Enter ${field.title}`}
-                  disabled={field.readonly}
-                />
-              );
+              input = <AdventureSelectField field={field} />;
               break;
             }
           }

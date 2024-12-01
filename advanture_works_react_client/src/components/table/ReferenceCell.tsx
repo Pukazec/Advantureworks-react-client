@@ -25,8 +25,6 @@ const ReferenceCell: React.FC<Props> = (props: Props) => {
     setEntity(result);
   };
 
-  console.log(entity && entity[0]?.name);
-
   return <span>{entity ? entity[0]?.name : ''}</span>;
 };
 
