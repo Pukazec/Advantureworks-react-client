@@ -11,7 +11,7 @@ interface Props {
   setVisible: (visible: boolean) => void;
 }
 const EditUser: React.FC<Props> = (props: Props) => {
-  const { email: userName } = useAuthContext();
+  const { email } = useAuthContext();
   const { get, put } = useHttpContext();
   const navigate = useNavigate();
   const [form] = useForm();
@@ -23,6 +23,7 @@ const EditUser: React.FC<Props> = (props: Props) => {
   };
 
   const fetchUser = async () => {
+    const userName = email();
     if (userName) {
       const result = await get<any>(`${routes.ROUTE_USER}?email=${userName}`);
       setUser(result?.at(0));

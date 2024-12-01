@@ -63,7 +63,7 @@ const HttpContext = createContext<IUseHttpValues>(defaultState);
 export const useHttpContext = () => useContext(HttpContext);
 
 export const HttpContextProvider: FC<Props> = (props: Props) => {
-  const { jwt } = useAuthContext();
+  const { jwt, logout } = useAuthContext();
   const navigate = useNavigate();
 
   const [loading, setLoading] = useState(false);
@@ -129,7 +129,7 @@ export const HttpContextProvider: FC<Props> = (props: Props) => {
       delete body._intermediateData;
     }
 
-    await executeRequest<T>(jwt(), requestType, url, body)
+    await executeRequest<T>(jwt, requestType, url, body)
       .then((response) => {
         const isGetRequest = requestType === RequestType.get;
         resp = handleResponse(response, showNotification ?? !isGetRequest);
@@ -147,7 +147,7 @@ export const HttpContextProvider: FC<Props> = (props: Props) => {
   };
 
   async function executeRequest<T>(
-    jwt: string | undefined,
+    jwt: () => string | undefined,
     requestType: RequestType,
     url: string,
     body?: any
@@ -204,6 +204,7 @@ export const HttpContextProvider: FC<Props> = (props: Props) => {
         title: 'Unauthorized',
         content: reason.response.data?.message,
       });
+      logout();
     } else if (reason.response.status === 500) {
       Modal.error({
         title: 'Internal server error',
@@ -242,12 +243,13 @@ export const HttpContextProvider: FC<Props> = (props: Props) => {
 };
 
 const getGenericRequestConfig = (
-  jwt: string | undefined
+  jwt: () => string | undefined
 ): AxiosRequestConfig<any> => {
-  const accessToken = jwt;
-  const initialHeaders: RawAxiosRequestHeaders = {
-    Authorization: `Bearer ${accessToken}`,
-  };
+  const accessToken = jwt();
+  const initialHeaders: RawAxiosRequestHeaders = {};
+  if (accessToken) {
+    initialHeaders.Authorization = `Bearer ${accessToken}`;
+  }
 
   return {
     headers: {

@@ -15,7 +15,8 @@ const MainHeader: React.FC = () => {
 
   useEffect(() => {
     const userItems = [];
-    if (jwt()) {
+    const accessToken = jwt();
+    if (accessToken) {
       userItems.push({
         key: '101',
         label: email() ?? 'no user name',
