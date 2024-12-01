@@ -3,7 +3,7 @@ Fake back-end based on JSON server:
 
 *** Install ***
 
-npm i
+npm install -g json-server
 
 *** Generate fake data ***
 
@@ -57,8 +57,8 @@ Response example: {
 
 Login user: POST http://localhost:6969/auth/login (returns JWT)
 Response example: {
-  "email": "test3@email.com",
-  "password":"test3"
+  "email": "test8@email.com",
+  "password":"test8"
 }
 
 Get cities: GET http://localhost:6969/City
@@ -103,5 +103,11 @@ Filter using full-text search: GET http://localhost:6969/Bill?q=atque
 Sorting: GET http://localhost:6969/Category?_sort=name&_order=desc
 
 For more operations, see: https://github.com/typicode/json-server
+
+*** Can I get total number of items behind an endpoint? ***
+
+Yes, there is "x-total-count" response header that you can use.
+It contains the information you need - total number of items.
+See: https://github.com/typicode/json-server/tree/v0?tab=readme-ov-file#slice
 
 *** Enjoy fake REST server! ***

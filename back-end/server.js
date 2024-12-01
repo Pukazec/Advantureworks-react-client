@@ -62,12 +62,16 @@ function verifyToken(token) {
 }
 
 server.use(/^(?!\/auth).*$/, (req, res, next) => {
-  const allowedUrls = ["/City", "/Customer"];
-  if (allowedUrls.includes(req.baseUrl)) {
-    console.log("*allowed endpoint*");
-    next();
-    return;
+  const allowedUrls = ["city", "customer"];
+  for (const url of allowedUrls) {
+    const token = req.baseUrl.split("/")[1].toLowerCase();
+    if (token.includes(url)) {
+      console.log("*allowed endpoint*");
+      next();
+      return;
+    }
   }
+
   console.log("*protected endpoint*");
 
   if (
