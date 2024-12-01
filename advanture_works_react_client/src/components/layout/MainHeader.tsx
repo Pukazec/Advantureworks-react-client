@@ -8,17 +8,17 @@ import EditUser from '../../pages/UserManagement/EditUser';
 import { routes } from '../../utils/routes/definedRoutes';
 
 const MainHeader: React.FC = () => {
-  const { email: userName, jwt, logout } = useAuthContext();
+  const { email, jwt, logout } = useAuthContext();
   const navigate = useNavigate();
   const [items, setItems] = useState<ItemType<MenuItemType>[] | undefined>();
   const [editShown, setEditShown] = useState<boolean>(false);
 
   useEffect(() => {
     const userItems = [];
-    if (jwt) {
+    if (jwt()) {
       userItems.push({
         key: '101',
-        label: userName ?? 'no user name',
+        label: email() ?? 'no user name',
         onClick: () => {
           setEditShown(true);
         },
@@ -46,7 +46,7 @@ const MainHeader: React.FC = () => {
     }
 
     setItems(userItems);
-  }, [jwt]);
+  }, [jwt()]);
 
   return (
     <Header style={{ display: 'flex', alignItems: 'center' }}>

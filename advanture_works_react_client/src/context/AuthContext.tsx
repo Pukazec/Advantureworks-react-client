@@ -1,5 +1,7 @@
-import { createContext, FC, ReactNode, useContext, useState } from 'react';
+import { jwtDecode } from 'jwt-decode';
+import { createContext, FC, ReactNode, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { LOCAL_STORAGE_JWT } from '../utils/constants/storage';
 import { routes } from '../utils/routes/definedRoutes';
 
 interface Props {
@@ -7,19 +9,19 @@ interface Props {
 }
 
 export interface IUseAuthValues {
-  email: string | undefined;
-  setEmail: (newState: string) => void;
-  jwt: string | undefined;
+  email: () => string | undefined;
+  jwt: () => string | undefined;
   setJwt: (newState: string) => void;
   logout: () => void;
 }
 
 const defaultState: IUseAuthValues = {
-  email: undefined,
-  setEmail: () => {
+  email: () => {
     throw new Error('Function not implemented.');
   },
-  jwt: undefined,
+  jwt: () => {
+    throw new Error('Function not implemented.');
+  },
   setJwt: () => {
     throw new Error('Function not implemented.');
   },
@@ -33,20 +35,33 @@ export const useAuthContext = () => useContext(AuthContext);
 
 export const AuthContextProvider: FC<Props> = (props: Props) => {
   const navigate = useNavigate();
-  const [email, setEmail] = useState<string | undefined>(undefined);
-  const [jwt, setJwt] = useState<string | undefined>(undefined);
 
   const logout = () => {
-    setEmail(undefined);
-    setJwt(undefined);
+    localStorage.removeItem(LOCAL_STORAGE_JWT);
     navigate(routes.ROUTE_USER_LOGIN);
+  };
+
+  const setJwt = (newState: string) => {
+    localStorage.setItem(LOCAL_STORAGE_JWT, newState);
+  };
+
+  const jwt = () => {
+    const jwt = localStorage.getItem(LOCAL_STORAGE_JWT);
+    if (!jwt) return undefined;
+    return jwt;
+  };
+
+  const email = () => {
+    const jwt = localStorage.getItem(LOCAL_STORAGE_JWT);
+    if (!jwt) return undefined;
+    const decodedJwt: any = jwtDecode(jwt);
+    return decodedJwt.email;
   };
 
   return (
     <AuthContext.Provider
       value={{
         email,
-        setEmail,
         jwt,
         setJwt,
         logout,

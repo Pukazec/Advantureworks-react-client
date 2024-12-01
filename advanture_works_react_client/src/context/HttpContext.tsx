@@ -129,7 +129,7 @@ export const HttpContextProvider: FC<Props> = (props: Props) => {
       delete body._intermediateData;
     }
 
-    await executeRequest<T>(jwt, requestType, url, body)
+    await executeRequest<T>(jwt(), requestType, url, body)
       .then((response) => {
         const isGetRequest = requestType === RequestType.get;
         resp = handleResponse(response, showNotification ?? !isGetRequest);

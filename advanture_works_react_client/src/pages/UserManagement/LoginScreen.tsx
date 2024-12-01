@@ -1,13 +1,13 @@
 import { Button, Form, Input } from 'antd';
 import { useForm } from 'antd/lib/form/Form';
 import { useNavigate } from 'react-router-dom';
-import { routes } from '../../config/routes/definedRoutes';
 import { useAuthContext } from '../../context/AuthContext';
 import { useHttpContext } from '../../context/HttpContext';
+import { routes } from '../../utils/routes/definedRoutes';
 
 const LoginScreen: React.FC = () => {
   const { post } = useHttpContext();
-  const { setEmail, setJwt } = useAuthContext();
+  const { setJwt } = useAuthContext();
   const navigate = useNavigate();
   const [form] = useForm();
 
@@ -17,7 +17,6 @@ const LoginScreen: React.FC = () => {
 
     if (result) {
       setJwt(result.access_token);
-      setEmail(formValues.email);
       navigate(routes.ROUTE_MAIN);
     }
   };
