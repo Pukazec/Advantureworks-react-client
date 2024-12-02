@@ -100,13 +100,6 @@ const MainHeader: React.FC = () => {
             },
           },
           {
-            key: '6',
-            label: 'Item',
-            onClick: () => {
-              navigate(routes.ROUTE_ITEM);
-            },
-          },
-          {
             key: '7',
             label: 'Product',
             onClick: () => {
