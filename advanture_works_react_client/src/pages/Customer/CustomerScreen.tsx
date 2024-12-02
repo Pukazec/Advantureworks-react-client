@@ -1,4 +1,4 @@
-import { Button, Card, Table } from 'antd';
+import { Button, Card, Modal, Table } from 'antd';
 import { useEffect, useState } from 'react';
 import AdventureForm from '../../components/form/AdventureForm';
 import { getActionColumn } from '../../components/table/fixedColumns';
@@ -6,11 +6,13 @@ import { useHttpContext } from '../../context/HttpContext';
 import { getFieldDto } from '../../utils/field/Field';
 import { FieldTypes } from '../../utils/field/fieldDtos';
 import { routes } from '../../utils/routes/definedRoutes';
+import BillScreen from '../Bill/BillScreen';
 
 const CustomerScreen: React.FC = () => {
   const { get, deleteEntity } = useHttpContext();
   const [data, setData] = useState<any[]>([]);
   const [formOpen, setFormOpen] = useState<boolean>(false);
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [fields, setFields] = useState<any[]>([]);
   const [selectedEntity, setSelectedEntity] = useState<any>();
 
@@ -31,22 +33,19 @@ const CustomerScreen: React.FC = () => {
       { ...getFieldDto('Id', FieldTypes.NUMBER), readonly: true },
       { ...getFieldDto('Name', FieldTypes.TEXT) },
       { ...getFieldDto('Surname', FieldTypes.TEXT) },
-      { ...getFieldDto('Email', FieldTypes.TEXT) },
+      { ...getFieldDto('Email', FieldTypes.EMAIL) },
       { ...getFieldDto('Telephone', FieldTypes.TEXT) },
       {
         ...getFieldDto('CityId', FieldTypes.SELECT, routes.ROUTE_CITY),
       },
       {
-        ...getActionColumn(deleteIt, setSelectedEntity),
+        ...getActionColumn(deleteIt, (record: any) => {
+          setSelectedEntity(record);
+          setFormOpen(true);
+        }),
       },
     ]);
   }, []);
-
-  useEffect(() => {
-    if (selectedEntity) {
-      setFormOpen(true);
-    }
-  }, [selectedEntity]);
 
   useEffect(() => {
     if (!formOpen) {
@@ -60,7 +59,16 @@ const CustomerScreen: React.FC = () => {
       title="Customers"
       extra={<Button onClick={() => setFormOpen(true)}>New</Button>}
     >
-      <Table dataSource={data} columns={fields} />
+      <Table
+        dataSource={data}
+        columns={fields}
+        onRow={(record) => ({
+          onClick: () => {
+            setSelectedEntity(record);
+            setModalOpen(true);
+          },
+        })}
+      />
 
       {formOpen ? (
         <AdventureForm
@@ -71,6 +79,16 @@ const CustomerScreen: React.FC = () => {
           selectedEntity={selectedEntity}
         />
       ) : undefined}
+
+      {selectedEntity && !formOpen && (
+        <Modal
+          open={modalOpen}
+          onCancel={() => setModalOpen(false)}
+          width={'100vw'}
+        >
+          <BillScreen customer={selectedEntity} />
+        </Modal>
+      )}
     </Card>
   );
 };

@@ -21,8 +21,12 @@ export const routes = {
   ROUTE_CITY: '/City',
   ROUTE_CREDIT_CARD: '/CreditCard',
   ROUTE_CUSTOMER: '/Customer',
-  ROUTE_ITEM: '/Item',
+  ROUTE_ITEM: `/Item${mandatoryDynamicParam}`,
   ROUTE_PRODUCT: '/Product',
   ROUTE_SELLER: '/Seller',
   ROUTE_SUB_CATEGORY: '/SubCategory',
+};
+
+export const removeParam = (path: string) => {
+  return path.replace(/\/:[^\\/]+/, '');
 };

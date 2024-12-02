@@ -1,4 +1,6 @@
 import MainLayout from '../../components/layout/MainLayout';
+import BillScreen from '../../pages/Bill/BillScreen';
+import BillItemScreen from '../../pages/BillItems/BillItemsScreen';
 import CustomerScreen from '../../pages/Customer/CustomerScreen';
 import HomeScreen from '../../pages/HomeScreen';
 import LoginScreen from '../../pages/UserManagement/LoginScreen';
@@ -33,14 +35,14 @@ export const routeElements = [
     ),
   },
   // Entities
-  // {
-  //   path: routes.ROUTE_BILL,
-  //   element: (
-  //     <MainLayout>
-  //       <BillScreen />
-  //     </MainLayout>
-  //   ),
-  // },
+  {
+    path: routes.ROUTE_BILL,
+    element: (
+      <MainLayout>
+        <BillScreen />
+      </MainLayout>
+    ),
+  },
   // {
   //   path: routes.ROUTE_CATEGORY,
   //   element: (
@@ -73,14 +75,14 @@ export const routeElements = [
       </MainLayout>
     ),
   },
-  // {
-  //   path: routes.ROUTE_ITEM,
-  //   element: (
-  //     <MainLayout>
-  //       <ItemScreen />
-  //     </MainLayout>
-  //   ),
-  // },
+  {
+    path: routes.ROUTE_ITEM,
+    element: (
+      <MainLayout>
+        <BillItemScreen />
+      </MainLayout>
+    ),
+  },
   // {
   //   path: routes.ROUTE_PRODUCT,
   //   element: (

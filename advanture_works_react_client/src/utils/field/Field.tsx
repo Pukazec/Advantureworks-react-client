@@ -8,7 +8,8 @@ import { FieldDto, FieldTypes } from './fieldDtos';
 export const getFieldDto = (
   columnName: string,
   fieldType: FieldTypes,
-  url?: string
+  url?: string,
+  path?: string
 ): FieldDto => {
   const lowerCaseTitle = lowerCaseFirstLetter(columnName);
   return {
@@ -19,12 +20,19 @@ export const getFieldDto = (
     ...getTextSearchFilter(lowerCaseTitle),
     fieldType: fieldType,
     url: url,
-    render: (value: any) =>
-      fieldType === FieldTypes.SELECT && url ? (
-        <ReferenceCell url={url} value={value} />
-      ) : (
-        value
-      ),
+    render: (value: any) => {
+      switch (fieldType) {
+        case FieldTypes.TEXT:
+        case FieldTypes.NUMBER:
+        case FieldTypes.BOOLEAN:
+        case FieldTypes.DATE:
+          return value;
+        case FieldTypes.SELECT:
+          return <ReferenceCell url={url} value={value} path={path} />;
+        case FieldTypes.EMAIL:
+          return <a href={`mailto:${value}`}>{value}</a>;
+      }
+    },
   };
 };
 

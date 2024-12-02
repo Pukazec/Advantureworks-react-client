@@ -7,6 +7,7 @@ export enum FieldTypes {
   BOOLEAN = 3,
   SELECT = 4,
   DATE = 5,
+  EMAIL = 6,
 }
 
 export interface FieldDto extends ColumnType<any> {
