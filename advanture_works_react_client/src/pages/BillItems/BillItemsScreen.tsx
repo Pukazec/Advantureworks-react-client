@@ -1,12 +1,12 @@
 import { Button, Card, Table } from 'antd';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import AdventureForm from '../../components/form/AdventureForm';
 import { getActionColumn } from '../../components/table/fixedColumns';
 import { useHttpContext } from '../../context/HttpContext';
 import { getFieldDto } from '../../utils/field/Field';
 import { FieldTypes } from '../../utils/field/fieldDtos';
 import { removeParam, routes } from '../../utils/routes/definedRoutes';
+import BillItemForm from './BillItemForm';
 
 const BillItemScreen: React.FC = () => {
   const { dynamicParam } = useParams();
@@ -83,12 +83,10 @@ const BillItemScreen: React.FC = () => {
       <Table dataSource={data} columns={fields} />
 
       {formOpen ? (
-        <AdventureForm
+        <BillItemForm
           open={formOpen}
           setOpen={setFormOpen}
-          fields={fields}
-          apiPath={routes.ROUTE_CUSTOMER}
-          selectedEntity={undefined}
+          billId={Number(dynamicParam?.split('=')[1])}
         />
       ) : undefined}
     </Card>
