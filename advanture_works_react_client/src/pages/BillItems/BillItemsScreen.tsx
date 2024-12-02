@@ -12,6 +12,7 @@ const BillItemScreen: React.FC = () => {
   const { dynamicParam } = useParams();
   const { get, deleteEntity } = useHttpContext();
   const [data, setData] = useState<any[]>([]);
+  const [customer, setCustomer] = useState<any>();
   const [formOpen, setFormOpen] = useState<boolean>(false);
   const [fields, setFields] = useState<any[]>([]);
 
@@ -20,6 +21,19 @@ const BillItemScreen: React.FC = () => {
     const result = await get<any[]>(url);
 
     setData(result ?? []);
+  };
+
+  const fetchCustomer = async () => {
+    const billUrl = `${removeParam(routes.ROUTE_BILL)}?id=${
+      dynamicParam?.split('=')[1]
+    }`;
+    const billResult = await get<any[]>(billUrl);
+    const url = `${removeParam(routes.ROUTE_CUSTOMER)}?id=${
+      billResult?.[0]?.customerId
+    }`;
+    const result = await get<any[]>(url);
+
+    setCustomer(result?.[0]);
   };
 
   const deleteIt = (id: any) => {
@@ -70,6 +84,11 @@ const BillItemScreen: React.FC = () => {
   }, []);
 
   useEffect(() => {
+    if (!data) return;
+    fetchCustomer();
+  }, [data]);
+
+  useEffect(() => {
     if (!formOpen) {
       fetchData();
     }
@@ -77,10 +96,28 @@ const BillItemScreen: React.FC = () => {
 
   return (
     <Card
-      title="Bill items"
-      extra={<Button onClick={() => setFormOpen(true)}>New</Button>}
+      title={
+        <>
+          <h1>Bill items</h1>
+          <h2>
+            Total of {data.length} items: $
+            {data.reduce((sum, product) => sum + product.totalPrice, 0)}
+          </h2>
+        </>
+      }
+      extra={
+        <>
+          <h3>Customer id: {customer?.id}</h3>
+          <h3>Bill id: {dynamicParam?.split('=')[1]}</h3>
+          <h3>Telephone: {customer?.telephone}</h3>
+          <h3>
+            Email: <a href="mailto:{customer.email}">{customer?.email}</a>
+          </h3>
+          <Button onClick={() => setFormOpen(true)}>New</Button>
+        </>
+      }
     >
-      <Table dataSource={data} columns={fields} />
+      <Table size="small" dataSource={data} columns={fields} />
 
       {formOpen ? (
         <BillItemForm

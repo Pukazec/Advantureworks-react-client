@@ -14,6 +14,7 @@ export const getActionColumn = (
         <Space size="middle">
           {onEdit && (
             <Button
+              size="small"
               type="primary"
               onClick={() => {
                 onEdit(record);
@@ -24,6 +25,7 @@ export const getActionColumn = (
           )}
           <Button
             danger
+            size="small"
             onClick={() => {
               deleteEntity(id);
             }}
