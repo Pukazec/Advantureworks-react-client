@@ -18,7 +18,7 @@ enum RequestType {
   deleteEntity,
 }
 
-const API_PATH = 'http://localhost:6969';
+const API_PATH = 'http://localhost:3000';
 
 export interface IUseHttpValues {
   get: <T>(url: string, showLoader?: boolean) => Promise<T | undefined>;

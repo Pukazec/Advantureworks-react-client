@@ -24,9 +24,10 @@ export const getFieldDto = (
       switch (fieldType) {
         case FieldTypes.TEXT:
         case FieldTypes.NUMBER:
-        case FieldTypes.BOOLEAN:
         case FieldTypes.DATE:
           return value;
+        case FieldTypes.BOOLEAN:
+          return value ? 'Yes' : 'No';
         case FieldTypes.SELECT:
           return <ReferenceCell url={url} value={value} path={path} />;
         case FieldTypes.EMAIL:

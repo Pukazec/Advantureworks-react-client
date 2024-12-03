@@ -24,44 +24,44 @@ Yes, see next section.
 *** Which endpoints are supported? ***
 
 User register and login:
-- POST http://localhost:6969/auth/register
-- POST http://localhost:6969/auth/login
+- POST http://localhost:3000/auth/register
+- POST http://localhost:3000/auth/login
 
 City CRUD:
-- GET http://localhost:6969/City
-- POST http://localhost:6969/City
-- PUT http://localhost:6969/City
-- DELETE http://localhost:6969/City
+- GET http://localhost:3000/City
+- POST http://localhost:3000/City
+- PUT http://localhost:3000/City
+- DELETE http://localhost:3000/City
 
 Following endpoints also support GET/POST/PUT/DELETE:
-- http://localhost:6969/Customer
-- http://localhost:6969/Bill
-- http://localhost:6969/CreditCard
-- http://localhost:6969/Seller
-- http://localhost:6969/Item
-- http://localhost:6969/Category
-- http://localhost:6969/SubCategory
-- http://localhost:6969/Product
+- http://localhost:3000/Customer
+- http://localhost:3000/Bill
+- http://localhost:3000/CreditCard
+- http://localhost:3000/Seller
+- http://localhost:3000/Item
+- http://localhost:3000/Category
+- http://localhost:3000/SubCategory
+- http://localhost:3000/Product
 
 All endpoints are secured, except Customer and City.
 For more details on how endpoints work, see: https://github.com/typicode/json-server
 
 *** Can I have some examples on how to do basic operations like register, login, GET data and POST data? ***
 
-Register user: POST http://localhost:6969/auth/register
+Register user: POST http://localhost:3000/auth/register
 Response example: {
   "name": "test8",
   "email": "test8@email.com",
   "password": "test8"
 }
 
-Login user: POST http://localhost:6969/auth/login (returns JWT)
+Login user: POST http://localhost:3000/auth/login (returns JWT)
 Response example: {
   "email": "test8@email.com",
   "password":"test8"
 }
 
-Get cities: GET http://localhost:6969/City
+Get cities: GET http://localhost:3000/City
 Response example: [
     {
         "id": 1,
@@ -88,7 +88,7 @@ Response example: [
     }
 ]
 
-Create city: POST http://localhost:6969/City
+Create city: POST http://localhost:3000/City
 Request example: {
   "guid": "7cc2f282-6451-490c-a50b-f533ca7284aa",
   "name": "Zagreb"
@@ -96,11 +96,11 @@ Request example: {
 
 *** Are other operations like paging, filtering, sorting supported? ***
 
-Page cities: GET http://localhost:6969/City?_page=2&_limit=10
-Filter cities: GET http://localhost:6969/City?name=Zagreb
-Filter using like operator: GET http://localhost:6969/City?name_like=grad
-Filter using full-text search: GET http://localhost:6969/Bill?q=atque
-Sorting: GET http://localhost:6969/Category?_sort=name&_order=desc
+Page cities: GET http://localhost:3000/City?_page=2&_limit=10
+Filter cities: GET http://localhost:3000/City?name=Zagreb
+Filter using like operator: GET http://localhost:3000/City?name_like=grad
+Filter using full-text search: GET http://localhost:3000/Bill?q=atque
+Sorting: GET http://localhost:3000/Category?_sort=name&_order=desc
 
 For more operations, see: https://github.com/typicode/json-server
 
