@@ -31,6 +31,7 @@ const LoginScreen: React.FC = () => {
         style={{ maxWidth: 400 }}
       >
         <Form.Item
+          initialValue={'admin@email.com'}
           name="email"
           label="Email"
           rules={[{ required: true, message: 'Please enter your email!' }]}
@@ -41,6 +42,7 @@ const LoginScreen: React.FC = () => {
         <Form.Item
           name="password"
           label="Password"
+          initialValue={'123qweasd'}
           rules={[{ required: true, message: 'Please enter your password!' }]}
         >
           <Input.Password placeholder="Password" />

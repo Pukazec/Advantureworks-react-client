@@ -65,24 +65,17 @@ const MainHeader: React.FC = () => {
             },
           },
           {
+            key: '5',
+            label: 'Customer',
+            onClick: () => {
+              navigate(routes.ROUTE_CUSTOMER);
+            },
+          },
+          {
             key: '1',
             label: 'Bill',
             onClick: () => {
               navigate(routes.ROUTE_BILL);
-            },
-          },
-          {
-            key: '2',
-            label: 'Category',
-            onClick: () => {
-              navigate(routes.ROUTE_CATEGORY);
-            },
-          },
-          {
-            key: '3',
-            label: 'City',
-            onClick: () => {
-              navigate(routes.ROUTE_CITY);
             },
           },
           {
@@ -93,20 +86,6 @@ const MainHeader: React.FC = () => {
             },
           },
           {
-            key: '5',
-            label: 'Customer',
-            onClick: () => {
-              navigate(routes.ROUTE_CUSTOMER);
-            },
-          },
-          {
-            key: '7',
-            label: 'Product',
-            onClick: () => {
-              navigate(routes.ROUTE_PRODUCT);
-            },
-          },
-          {
             key: '8',
             label: 'Seller',
             onClick: () => {
@@ -114,11 +93,38 @@ const MainHeader: React.FC = () => {
             },
           },
           {
-            key: '9',
-            label: 'Sub Category',
+            key: '3',
+            label: 'City',
             onClick: () => {
-              navigate(routes.ROUTE_SUB_CATEGORY);
+              navigate(routes.ROUTE_CITY);
             },
+          },
+          {
+            key: '56',
+            label: 'Products',
+            children: [
+              {
+                key: '2',
+                label: 'Category',
+                onClick: () => {
+                  navigate(routes.ROUTE_CATEGORY);
+                },
+              },
+              {
+                key: '9',
+                label: 'Sub Category',
+                onClick: () => {
+                  navigate(routes.ROUTE_SUB_CATEGORY);
+                },
+              },
+              {
+                key: '7',
+                label: 'Product',
+                onClick: () => {
+                  navigate(routes.ROUTE_PRODUCT);
+                },
+              },
+            ],
           },
         ]}
         style={{ flex: 1, minWidth: 0 }}
