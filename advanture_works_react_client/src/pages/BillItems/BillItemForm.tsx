@@ -1,18 +1,18 @@
-import { Card, Form, InputNumber, Modal, Select, Spin } from 'antd';
+import { Button, Card, Divider, Form, InputNumber, Select, Spin } from 'antd';
 import { useForm } from 'antd/es/form/Form';
-import { useEffect, useState } from 'react';
+import { CSSProperties, useEffect, useState } from 'react';
 import { useHttpContext } from '../../context/HttpContext';
 import { removeParam, routes } from '../../utils/routes/definedRoutes';
 
 const { Option } = Select;
 
 interface Props {
-  open: boolean;
-  setOpen: (newState: boolean) => void;
+  style: CSSProperties;
+  setStyle: (newState: CSSProperties) => void;
   billId: number;
 }
 
-const ProductForm: React.FC<Props> = ({ open, setOpen, billId }) => {
+const ProductForm: React.FC<Props> = ({ style, setStyle, billId }) => {
   const [form] = useForm();
   const { get, post } = useHttpContext();
   const [categories, setCategories] = useState<any[]>();
@@ -49,7 +49,7 @@ const ProductForm: React.FC<Props> = ({ open, setOpen, billId }) => {
     setFilteredSubcategories([]);
     setFilteredProducts([]);
     setSelectedProduct(null);
-    setOpen(false);
+    setStyle({ display: 'none' });
   };
 
   const onFinish = () => {
@@ -81,12 +81,7 @@ const ProductForm: React.FC<Props> = ({ open, setOpen, billId }) => {
   }, []);
 
   return (
-    <Modal
-      open={open}
-      onCancel={closeForm}
-      onOk={() => form.submit()}
-      okText="Save"
-    >
+    <Card style={{ ...style, marginBottom: '15px' }}>
       {categories && subcategories && products ? (
         <Form form={form} layout="vertical" onFinish={onFinish}>
           <Form.Item
@@ -153,29 +148,38 @@ const ProductForm: React.FC<Props> = ({ open, setOpen, billId }) => {
           </Form.Item>
 
           {selectedProduct && (
-            <Card
-              title="Selected Product Information"
-              style={{ marginTop: 20 }}
-            >
-              <p>
-                <strong>ID:</strong> {selectedProduct.id}
-              </p>
-              <p>
-                <strong>Name:</strong> {selectedProduct.name}
-              </p>
-              <p>
-                <strong>Color:</strong> {selectedProduct.color}
-              </p>
-              <p>
-                <strong>Product Number:</strong> {selectedProduct.productNumber}
-              </p>
-            </Card>
+            <>
+              <Divider />
+              <div style={{ display: 'flex', gap: '20px' }}>
+                <p>
+                  <strong>ID:</strong> {selectedProduct.id}
+                </p>
+                <p>
+                  <strong>Name:</strong> {selectedProduct.name}
+                </p>
+                <p>
+                  <strong>Color:</strong> {selectedProduct.color}
+                </p>
+                <p>
+                  <strong>Product Number:</strong>{' '}
+                  {selectedProduct.productNumber}
+                </p>
+              </div>
+            </>
           )}
+          <Button
+            type="primary"
+            onClick={() => {
+              form.submit();
+            }}
+          >
+            Save
+          </Button>
         </Form>
       ) : (
         <Spin />
       )}
-    </Modal>
+    </Card>
   );
 };
 

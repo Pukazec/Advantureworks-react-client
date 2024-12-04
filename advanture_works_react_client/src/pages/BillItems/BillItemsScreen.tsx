@@ -1,5 +1,5 @@
 import { Button, Card, Table } from 'antd';
-import { useEffect, useState } from 'react';
+import { CSSProperties, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getActionColumn } from '../../components/table/fixedColumns';
 import { useHttpContext } from '../../context/HttpContext';
@@ -13,7 +13,7 @@ const BillItemScreen: React.FC = () => {
   const { get, deleteEntity } = useHttpContext();
   const [data, setData] = useState<any[]>([]);
   const [customer, setCustomer] = useState<any>();
-  const [formOpen, setFormOpen] = useState<boolean>(false);
+  const [style, setStyle] = useState<CSSProperties>({ display: 'none' });
   const [fields, setFields] = useState<any[]>([]);
 
   const fetchData = async () => {
@@ -89,10 +89,10 @@ const BillItemScreen: React.FC = () => {
   }, [data]);
 
   useEffect(() => {
-    if (!formOpen) {
+    if (style.display === 'none') {
       fetchData();
     }
-  }, [formOpen]);
+  }, [style]);
 
   return (
     <Card
@@ -113,19 +113,24 @@ const BillItemScreen: React.FC = () => {
           <h3>
             Email: <a href="mailto:{customer.email}">{customer?.email}</a>
           </h3>
-          <Button onClick={() => setFormOpen(true)}>New</Button>
+          <Button
+            onClick={() => {
+              style.display === 'none'
+                ? setStyle({ display: 'block' })
+                : setStyle({ display: 'none' });
+            }}
+          >
+            {style.display === 'none' ? 'New' : 'Close'}
+          </Button>
         </>
       }
     >
+      <BillItemForm
+        style={style}
+        setStyle={setStyle}
+        billId={Number(dynamicParam?.split('=')[1])}
+      />
       <Table size="small" dataSource={data} columns={fields} />
-
-      {formOpen ? (
-        <BillItemForm
-          open={formOpen}
-          setOpen={setFormOpen}
-          billId={Number(dynamicParam?.split('=')[1])}
-        />
-      ) : undefined}
     </Card>
   );
 };
