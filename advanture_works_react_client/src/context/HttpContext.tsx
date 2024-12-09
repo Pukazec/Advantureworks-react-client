@@ -119,6 +119,7 @@ export const HttpContextProvider: FC<Props> = (props: Props) => {
     body?: any,
     showNotification?: boolean
   ): Promise<T | undefined> => {
+    // let/const
     let resp: T | undefined = undefined;
 
     if (showLoader !== false) {
@@ -131,6 +132,7 @@ export const HttpContextProvider: FC<Props> = (props: Props) => {
 
     await executeRequest<T>(jwt, requestType, url, body)
       .then((response) => {
+        // let/const
         const isGetRequest = requestType === RequestType.get;
         resp = handleResponse(response, showNotification ?? !isGetRequest);
       })

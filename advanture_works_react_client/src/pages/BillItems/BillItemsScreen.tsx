@@ -13,6 +13,7 @@ const BillItemScreen: React.FC = () => {
   const { get, deleteEntity } = useHttpContext();
   const [data, setData] = useState<any[]>([]);
   const [customer, setCustomer] = useState<any>();
+  // manipulate CSS style/classes
   const [style, setStyle] = useState<CSSProperties>({ display: 'none' });
   const [fields, setFields] = useState<any[]>([]);
 

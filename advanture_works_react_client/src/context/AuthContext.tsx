@@ -47,6 +47,7 @@ export const AuthContextProvider: FC<Props> = (props: Props) => {
 
   const jwt = () => {
     const jwt = localStorage.getItem(LOCAL_STORAGE_JWT);
+    // arrow function
     if (!jwt) return undefined;
     return jwt;
   };

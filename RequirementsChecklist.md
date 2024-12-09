@@ -1,0 +1,21 @@
+- [x] LO1
+  - [x] ES5 code
+  - [x] Use React to handle DOM
+- [ ] LO2
+  - [ ] ES6 code
+    - [x] let/const
+    - [x] arrow function
+    - [x] template literals
+    - [x] deconstructing
+    - [ ] classes
+    - [x] modules
+    - [x] manipulate CSS style/classes
+- [x] LO3
+  - [x] Why React better
+  - [x] SPA application
+- [x] LO4
+  - [x] 3 React libraries:
+    - 1 antd
+    - 2 axios
+    - 3 jwt-decode
+  - [x] Data management (context)

@@ -10,6 +10,7 @@ interface Props {
 }
 
 const BaseScreen: React.FC<Props> = ({ route, fields }) => {
+  // deconstructing
   const { get, deleteEntity } = useHttpContext();
   const [data, setData] = useState<any[]>([]);
   const [formOpen, setFormOpen] = useState<boolean>(false);
@@ -22,6 +23,7 @@ const BaseScreen: React.FC<Props> = ({ route, fields }) => {
   };
 
   const deleteIt = (id: any) => {
+    // template literal
     deleteEntity(`${route}/${id}`, true);
     fetchData();
   };

@@ -37,11 +37,14 @@ export const getFieldDto = (
   };
 };
 
-const lowerCaseFirstLetter = (title: string): string => {
-  if (title.length === 0) return title;
+// ES5
+function lowerCaseFirstLetter(title: string): string {
+  if (title.length === 0) {
+    return title;
+  }
 
-  const firstLetter = title.charAt(0).toLowerCase();
-  const restOfString = title.slice(1);
+  var firstLetter = title.charAt(0).toLowerCase();
+  var restOfString = title.slice(1);
 
   return firstLetter + restOfString;
-};
+}

@@ -27,60 +27,6 @@ const AdventureForm: React.FC<Props> = (props: Props) => {
   const { post, put } = useHttpContext();
   const [renderedForm, setRenderedForm] = useState<JSX.Element>();
 
-  const renderForm = () => {
-    setRenderedForm(
-      <>
-        {fields?.slice(0, -1).map((field) => {
-          let input: JSX.Element = <></>;
-
-          switch (field.fieldType) {
-            case FieldTypes.TEXT:
-              input = (
-                <Input
-                  placeholder={`Enter ${field.title}`}
-                  disabled={field.readonly}
-                />
-              );
-              break;
-            case FieldTypes.NUMBER:
-              input = (
-                <InputNumber
-                  placeholder={`Enter ${field.title}`}
-                  disabled={field.readonly}
-                />
-              );
-              break;
-            case FieldTypes.BOOLEAN:
-              input = <Checkbox disabled={field.readonly} />;
-              break;
-            case FieldTypes.DATE:
-              input = (
-                <DatePicker
-                  showTime
-                  placeholder={`Enter ${field.title}`}
-                  disabled={field.readonly}
-                />
-              );
-              break;
-            case FieldTypes.SELECT: {
-              input = <AdventureSelectField field={field} />;
-              break;
-            }
-          }
-          return (
-            <Form.Item
-              key={field.key}
-              label={field.title}
-              name={field.dataIndex}
-            >
-              {input}
-            </Form.Item>
-          );
-        })}
-      </>
-    );
-  };
-
   const onFinish = () => {
     const values = form.getFieldsValue();
     if (selectedEntity) {
@@ -98,8 +44,63 @@ const AdventureForm: React.FC<Props> = (props: Props) => {
   };
 
   useEffect(() => {
+    const renderForm = () => {
+      setRenderedForm(
+        <>
+          {fields?.slice(0, -1).map((field) => {
+            // let/const
+            let input: JSX.Element = <></>;
+
+            switch (field.fieldType) {
+              case FieldTypes.TEXT:
+                input = (
+                  <Input
+                    placeholder={`Enter ${field.title}`}
+                    disabled={field.readonly}
+                  />
+                );
+                break;
+              case FieldTypes.NUMBER:
+                input = (
+                  <InputNumber
+                    placeholder={`Enter ${field.title}`}
+                    disabled={field.readonly}
+                  />
+                );
+                break;
+              case FieldTypes.BOOLEAN:
+                input = <Checkbox disabled={field.readonly} />;
+                break;
+              case FieldTypes.DATE:
+                input = (
+                  <DatePicker
+                    showTime
+                    placeholder={`Enter ${field.title}`}
+                    disabled={field.readonly}
+                  />
+                );
+                break;
+              case FieldTypes.SELECT: {
+                input = <AdventureSelectField field={field} />;
+                break;
+              }
+            }
+            return (
+              <Form.Item
+                key={field.key}
+                label={field.title}
+                name={field.dataIndex}
+              >
+                {input}
+              </Form.Item>
+            );
+          })}
+        </>
+      );
+    };
+
     renderForm();
-  }, [open]);
+  }, [open, fields]);
 
   return renderedForm ? (
     <Modal
