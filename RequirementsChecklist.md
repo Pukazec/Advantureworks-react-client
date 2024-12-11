@@ -1,13 +1,13 @@
 - [x] LO1
   - [x] ES5 code
   - [x] Use React to handle DOM
-- [ ] LO2
-  - [ ] ES6 code
+- [x] LO2
+  - [x] ES6 code
     - [x] let/const
     - [x] arrow function
     - [x] template literals
     - [x] deconstructing
-    - [ ] classes
+    - [x] classes
     - [x] modules
     - [x] manipulate CSS style/classes
 - [x] LO3

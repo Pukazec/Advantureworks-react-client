@@ -3,6 +3,7 @@ import { useForm } from 'antd/es/form/Form';
 import { CSSProperties, useEffect, useState } from 'react';
 import { useHttpContext } from '../../context/HttpContext';
 import { removeParam, routes } from '../../utils/routes/definedRoutes';
+import { BillItem } from './BillItemClass';
 
 const { Option } = Select;
 
@@ -54,10 +55,10 @@ const ProductForm: React.FC<Props> = ({ style, setStyle, billId }) => {
 
   const onFinish = () => {
     const values = form.getFieldsValue();
-    values.billId = billId;
-    values.totalPrice = values.quantity * selectedProduct?.price;
+    const billItem = new BillItem(billId, values.productId, values.quantity);
+    billItem.setTotalPrice(selectedProduct);
 
-    post<any>(removeParam(routes.ROUTE_ITEM), values);
+    post<any>(removeParam(routes.ROUTE_ITEM), billItem.getBillItem());
     closeForm();
   };
 
@@ -69,12 +70,6 @@ const ProductForm: React.FC<Props> = ({ style, setStyle, billId }) => {
     const newProducts = await get<any[]>(routes.ROUTE_PRODUCT);
     setProducts(newProducts);
   };
-
-  useEffect(() => {
-    if (!open) {
-      closeForm();
-    }
-  }, [open]);
 
   useEffect(() => {
     fetchEnumerationItems();
