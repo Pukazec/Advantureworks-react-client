@@ -20,6 +20,7 @@ const RegisterScreen: React.FC = () => {
   return (
     <div className="user-management">
       <Form
+        form={form}
         name="register"
         layout="vertical"
         onFinish={onFinish}

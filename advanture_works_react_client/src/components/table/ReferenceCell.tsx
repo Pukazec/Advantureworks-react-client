@@ -13,18 +13,18 @@ const ReferenceCell: React.FC<Props> = (props: Props) => {
   const [entity, setEntity] = useState<any>();
 
   useEffect(() => {
+    const getEntity = async () => {
+      if (!value) {
+        return;
+      }
+      const result = await get<any>(`${url}?id=${value}`);
+      setEntity(result);
+    };
+
     if (value) {
       getEntity();
     }
   }, [value]);
-
-  const getEntity = async () => {
-    if (!value) {
-      return;
-    }
-    const result = await get<any>(`${url}?id=${value}`);
-    setEntity(result);
-  };
 
   if (!entity) {
     return <span></span>;

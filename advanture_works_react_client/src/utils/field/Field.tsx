@@ -1,3 +1,4 @@
+import numeral from 'numeral';
 import {
   getSorter,
   getTextSearchFilter,
@@ -13,7 +14,7 @@ export const getFieldDto = (
 ): FieldDto => {
   const lowerCaseTitle = lowerCaseFirstLetter(columnName);
   return {
-    title: columnName,
+    title: columnName.endsWith('Id') ? columnName.slice(0, -2) : columnName,
     dataIndex: lowerCaseTitle,
     key: lowerCaseTitle,
     ...getSorter(lowerCaseTitle, fieldType),
@@ -22,8 +23,9 @@ export const getFieldDto = (
     url: url,
     render: (value: any) => {
       switch (fieldType) {
-        case FieldTypes.TEXT:
         case FieldTypes.NUMBER:
+          return numeral(value).format('0.00');
+        case FieldTypes.TEXT:
         case FieldTypes.DATE:
           return value;
         case FieldTypes.BOOLEAN:

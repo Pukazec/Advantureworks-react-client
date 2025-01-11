@@ -19,7 +19,11 @@ const EditUser: React.FC<Props> = (props: Props) => {
 
   const onFinish = async () => {
     const formValues = form.getFieldsValue();
-    await put<any>(routes.ROUTE_USER, formValues);
+    var response = await put<any>(routes.ROUTE_USER, formValues);
+    if (response) {
+      form.resetFields();
+      props.setVisible(false);
+    }
   };
 
   const fetchUser = async () => {

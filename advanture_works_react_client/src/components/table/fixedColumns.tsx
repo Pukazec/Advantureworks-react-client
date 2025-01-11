@@ -1,4 +1,4 @@
-import { Button, Space } from 'antd';
+import { Button, Modal, Space } from 'antd';
 import { ColumnType } from 'antd/es/table';
 
 export const getActionColumn = (
@@ -27,7 +27,12 @@ export const getActionColumn = (
             danger
             size="small"
             onClick={() => {
-              deleteEntity(id);
+              Modal.confirm({
+                title: 'Are you sure you want to delete this item?',
+                onOk: () => {
+                  deleteEntity(id);
+                },
+              });
             }}
           >
             Delete
